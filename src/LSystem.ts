@@ -40,14 +40,14 @@ export default class LSystem {
 
     while (this._n <= this._steps) {
       const value: string = this._values[this._n];
+      console.log(value)
       let buffer = '';
 
-      console.log(this._n)
+      // console.log(this._n)
         for (const c of value) {
-          console.log(c);
           buffer += this.process(c);
-          console.log(buffer);
         }
+      // console.log(buffer);
       this._values.push(buffer);
       this._n += 1;
     }

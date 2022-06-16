@@ -53,7 +53,7 @@ const alphabet: Alphabet = new Alphabet();
 alphabet.variables.push(A);
 alphabet.variables.push(B);
 
-const lSystem = new LSystem(alphabet, 1);
+const lSystem = new LSystem(alphabet, 4);
 lSystem.rules.set(ruleA.subject.symbol, ruleA);
 lSystem.rules.set(ruleB.subject.symbol, ruleB);
 
