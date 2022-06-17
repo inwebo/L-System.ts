@@ -42,11 +42,11 @@ const A: LSymbol = new LSymbol('A');
 const B: LSymbol = new LSymbol('B');
 
 const ruleA: Rule = new Rule(A);
-ruleA.rule.push(A);
-ruleA.rule.push(B);
+ruleA.rules.push(A);
+ruleA.rules.push(B);
 
 const ruleB: Rule = new Rule(B);
-ruleB.rule.push(A);
+ruleB.rules.push(A);
 
 const alphabet: Alphabet = new Alphabet();
 
