@@ -9,9 +9,8 @@ export default class LSymbol {
     if (symbol.length === 1) {
       this._symbol = symbol;
     } else {
-      throw new Error(
-        `The symbol input must be a string with 1 char : input was {$this.symbol}`,
-      );
+      const message = `The symbol input must be a string with 1 char : input was {$this.symbol}`;
+      throw new Error(message);
     }
   }
 }
