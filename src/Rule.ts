@@ -2,20 +2,26 @@ import LSymbol from './LSymbol.js';
 
 export default class Rule {
   private readonly _subject: LSymbol;
-  private readonly _rule: Array<LSymbol>;
+  private readonly _rules: Array<LSymbol>;
 
   get subject(): LSymbol {
     return this._subject;
   }
 
-  get rule(): Array<LSymbol> {
-    return this._rule;
+  get rules(): Array<LSymbol> {
+    return this._rules;
+  }
+
+  push(lSymbol: LSymbol): Rule {
+    this._rules.push(lSymbol);
+
+    return this;
   }
 
   toString(): string {
     let buffer = '';
 
-    this._rule.forEach((l) => {
+    this._rules.forEach((l) => {
       buffer += l.symbol;
     });
 
@@ -24,6 +30,6 @@ export default class Rule {
 
   constructor(subject: LSymbol) {
     this._subject = subject;
-    this._rule = [];
+    this._rules = [];
   }
 }
