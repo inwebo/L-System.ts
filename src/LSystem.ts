@@ -8,6 +8,10 @@ export default class LSystem {
   private readonly _rules: Map<string, Rule>;
   private readonly _values: Array<string>;
 
+  get values(): Array<string> {
+    return this._values;
+  }
+
   get rules(): Map<string, Rule> {
     return this._rules;
   }
@@ -22,6 +26,12 @@ export default class LSystem {
 
   get alphabet(): Alphabet {
     return this._alphabet;
+  }
+
+  setRule(key: string, value: Rule): LSystem {
+    this._rules.set(key, value);
+
+    return this;
   }
 
   constructor(alphabet: Alphabet, steps: number) {
@@ -39,14 +49,12 @@ export default class LSystem {
   public iterate(): void {
     while (this._n <= this._steps) {
       const value: string = this._values[this._n];
-      console.log(value);
       let buffer = '';
 
-      // console.log(this._n)
       for (const c of value) {
         buffer += this.process(c);
       }
-      // console.log(buffer);
+
       this._values.push(buffer);
       this._n += 1;
     }
