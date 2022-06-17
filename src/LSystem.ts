@@ -1,5 +1,5 @@
-import Alphabet from "./Alphabet.js";
-import Rule from "./Rule.js";
+import Alphabet from './Alphabet.js';
+import Rule from './Rule.js';
 
 export default class LSystem {
   private readonly _alphabet: Alphabet;
@@ -26,31 +26,29 @@ export default class LSystem {
 
   constructor(alphabet: Alphabet, steps: number) {
     this._alphabet = alphabet;
-    this._steps    = steps;
-    this._n        = 0;
-    this._rules    = new Map();
-    this._values   = [this._alphabet.getAxiom().symbol];
+    this._steps = steps;
+    this._n = 0;
+    this._rules = new Map();
+    this._values = [this._alphabet.getAxiom().symbol];
   }
 
   protected process(char: string): string {
-      return this._rules.get(char).toString();
+    return this._rules.get(char).toString();
   }
 
   public iterate(): void {
-
     while (this._n <= this._steps) {
       const value: string = this._values[this._n];
-      console.log(value)
+      console.log(value);
       let buffer = '';
 
       // console.log(this._n)
-        for (const c of value) {
-          buffer += this.process(c);
-        }
+      for (const c of value) {
+        buffer += this.process(c);
+      }
       // console.log(buffer);
       this._values.push(buffer);
       this._n += 1;
     }
   }
-
 }

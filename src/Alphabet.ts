@@ -1,7 +1,6 @@
-import LSymbol from "./LSymbol.js";
+import LSymbol from './LSymbol.js';
 
 export default class Alphabet {
-
   private readonly _variables: Array<LSymbol>;
   private readonly _constants: Array<LSymbol>;
 
@@ -14,7 +13,7 @@ export default class Alphabet {
   }
 
   public getAxiom(index = 0): LSymbol {
-    if(this._variables.length > 0) {
+    if (this._variables.length > 0) {
       return this._variables.at(index);
     } else {
       throw new Error(`Variables are not set`);

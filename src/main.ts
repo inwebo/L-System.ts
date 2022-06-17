@@ -31,10 +31,10 @@
 //   return await delayedHello(name, Delays.Long);
 // }
 
-import Alphabet from "./Alphabet.js";
-import LSymbol   from "./LSymbol.js";
-import Rule     from "./Rule.js";
-import LSystem from "./LSystem.js";
+import Alphabet from './Alphabet.js';
+import LSymbol from './LSymbol.js';
+import Rule from './Rule.js';
+import LSystem from './LSystem.js';
 
 // Algae
 
