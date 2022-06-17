@@ -8,15 +8,28 @@ export default class Alphabet {
     return this._variables;
   }
 
+  pushVariable(lSymbol: LSymbol): Alphabet {
+    this._variables.push(lSymbol);
+
+    return this;
+  }
+
+  pushConstant(lSymbol: LSymbol): Alphabet {
+    this._constants.push(lSymbol);
+
+    return this;
+  }
+
   get constants(): Array<LSymbol> {
     return this._constants;
   }
 
   public getAxiom(index = 0): LSymbol {
-    if (this._variables.length > 0) {
-      return this._variables.at(index);
+    if (this._variables.at(index) === undefined) {
+      const message = `Variables array at index {$index} is not set`;
+      throw new Error(message);
     } else {
-      throw new Error(`Variables are not set`);
+      return this._variables.at(index);
     }
   }
 
