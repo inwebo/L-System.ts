@@ -1,35 +1,38 @@
-import LSymbol from './LSymbol.js';
+import Letter from './Letter.js';
 
+/**
+ * Recursive
+ */
 export default class Rule {
-  private readonly _subject: LSymbol;
-  private readonly _rules: Array<LSymbol>;
+  private readonly _letter: Letter;
+  private readonly _letters: Array<Letter>;
 
-  get subject(): LSymbol {
-    return this._subject;
+  get letter(): Letter {
+    return this._letter;
   }
 
-  get rules(): Array<LSymbol> {
-    return this._rules;
+  get letters(): Array<Letter> {
+    return this._letters;
   }
 
-  push(lSymbol: LSymbol): Rule {
-    this._rules.push(lSymbol);
+  pushLetter(letter: Letter): Rule {
+    this._letters.push(letter);
 
     return this;
   }
 
-  toString(): string {
-    let buffer = '';
+  lettersToSymbol(): string {
+    let symbolsAsString = '';
 
-    this._rules.forEach((l) => {
-      buffer += l.symbol;
+    this._letters.forEach((l) => {
+      symbolsAsString += l.symbol;
     });
 
-    return buffer;
+    return symbolsAsString;
   }
 
-  constructor(subject: LSymbol) {
-    this._subject = subject;
-    this._rules = [];
+  constructor(subject: Letter) {
+    this._letter = subject;
+    this._letters = [];
   }
 }

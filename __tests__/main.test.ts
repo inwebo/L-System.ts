@@ -1,70 +1,71 @@
-import LSymbol from '../src/LSymbol.js';
+import Letter from '../src/Letter.js';
 import Rule from '../src/Rule.js';
 import Alphabet from '../src/Alphabet.js';
-import LSystem from '../src/LSystem.js';
+import System from '../src/System.js';
 
 describe('L-System : Algae', () => {
-  // Symbols
-  const A = new LSymbol('A');
-  const B = new LSymbol('B');
+  const letterA = new Letter('A');
+  const letterB = new Letter('B');
 
-  // Rules
-  const ruleA = new Rule(A);
-
-  ruleA.push(A).push(B);
-
-  const ruleB = new Rule(B);
-  ruleB.push(A);
-
-  // Alphabet
   const alphabet = new Alphabet();
+  alphabet
+    .pushLetter(letterA)
+    .pushLetter(letterB);
 
-  alphabet.pushVariable(A).pushVariable(B);
+  // A => AB
+  const ruleA = new Rule(letterA);
+  ruleA
+    .pushLetter(letterA)
+    .pushLetter(letterB);
 
-  // LSystem
-  const lSystem = new LSystem(alphabet, 4);
-  lSystem
-    .setRule(ruleA.subject.symbol, ruleA)
-    .setRule(ruleB.subject.symbol, ruleB);
+  // B => A
+  const ruleB = new Rule(letterB);
+  ruleB.pushLetter(letterA);
 
-  it('LSymbols', () => {
-    expect(A.symbol).toBe('A');
-    expect(B.symbol).toBe('B');
+  const system = new System(alphabet, 4);
+  system
+    .setRule(ruleA)
+    .setRule(ruleB);
 
-    expect(() => new LSymbol('AA')).toThrowError();
+  it('Symbols', () => {
+    expect(letterA.symbol).toBe('A');
+
+    expect(letterB.symbol).toBe('B');
+
+    expect(() => new Letter('AA')).toThrowError();
   });
 
   it('Rules', () => {
-    expect(ruleA.rules.length).toBe(2);
-    expect(ruleA.toString()).toBe('AB');
+    expect(ruleA.letters.length).toBe(2);
+    expect(ruleA.lettersToSymbol()).toBe('AB');
 
-    expect(ruleB.toString()).toBe('A');
+    expect(ruleB.lettersToSymbol()).toBe('A');
   });
 
   it('Alphabet', () => {
-    expect(alphabet.variables.length).toBe(2);
-    expect(alphabet.getAxiom(0)).toBe(A);
-    expect(alphabet.getAxiom(1)).toBe(B);
+    expect(alphabet.letters.length).toBe(2);
+    expect(alphabet.getFirst()).toBe(letterA);
+    expect(alphabet.getLetterAt(1)).toBe(letterB);
 
-    expect(() => alphabet.getAxiom(2)).toThrowError();
+    expect(() => alphabet.getLetterAt(2)).toThrowError();
     expect(alphabet.constants.length).toBe(0);
   });
+  ("-")
+  it('System', () => {
+    expect(system.currentStep).toBe(0);
+    system.iterate();
+    expect(system.currentStep).toBe(5);
+    expect(system.stepLength).toBe(4);
 
-  it('LSystem', () => {
-    expect(lSystem.n).toBe(0);
-    lSystem.iterate();
-    expect(lSystem.n).toBe(5);
-    expect(lSystem.steps).toBe(4);
+    expect(system.symbols[0]).toBe('A');
+    expect(system.symbols[1]).toBe('AB');
+    expect(system.symbols[2]).toBe('ABA');
+    expect(system.symbols[3]).toBe('ABAAB');
+    expect(system.symbols[4]).toBe('ABAABABA');
+    expect(system.symbols[5]).toBe('ABAABABAABAAB');
 
-    expect(lSystem.values[0]).toBe('A');
-    expect(lSystem.values[1]).toBe('AB');
-    expect(lSystem.values[2]).toBe('ABA');
-    expect(lSystem.values[3]).toBe('ABAAB');
-    expect(lSystem.values[4]).toBe('ABAABABA');
-    expect(lSystem.values[5]).toBe('ABAABABAABAAB');
+    expect(system.alphabet).toBe(alphabet);
 
-    expect(lSystem.alphabet).toBe(alphabet);
-
-    expect(lSystem.rules.size).toBe(2);
+    expect(system.rules.size).toBe(2);
   });
 });

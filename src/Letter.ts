@@ -1,4 +1,4 @@
-export default class LSymbol {
+export default class Letter {
   private readonly _symbol: string;
 
   get symbol(): string {
